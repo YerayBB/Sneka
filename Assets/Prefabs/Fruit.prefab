@@ -122,6 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74185d72842b9dc4dbf646c14cbf7dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 5
-  _points: 5
-  _growth: 1
+  duration: 5
+  _points: 10
+  _nutrients: 1

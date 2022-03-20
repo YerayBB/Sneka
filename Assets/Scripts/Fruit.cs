@@ -6,8 +6,7 @@ namespace Sneka
 {
     public class Fruit : MonoBehaviour, IEdible
     {
-        [SerializeField]
-        private float _duration = 5;
+        public float duration = 5;
         [SerializeField]
         [Min(2)]
         private int _points = 5;
@@ -16,13 +15,13 @@ namespace Sneka
 
         private void Awake()
         {
-            Destroy(gameObject, _duration);
+            Destroy(gameObject, duration);
         }
 
         public int Consume()
         {
-            gameObject.SetActive(false);
-            Destroy(gameObject, 1f);
+            GameManager.Instance.AddScore(_points);
+            transform.position = GameManager.Instance.GetRandomPosition();
             return _nutrients;
         }
     }

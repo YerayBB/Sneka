@@ -9,12 +9,17 @@ namespace Sneka
     {
         public static GameManager Instance { get; private set; }
 
+        [SerializeField]
+        private UIManager _ui;
+
         private BoxCollider2D _area;
         [SerializeField]
         private GameObject[] _fruitList;
         [SerializeField]
         private int _fruitInterval = 5;
         private int _nextSpawn;
+
+        private int _score = 0;
 
 
         private void Awake()
@@ -41,6 +46,7 @@ namespace Sneka
                     --_nextSpawn;
                 }
             };
+            _ui.SetScore(_score);
         }
 
         /// <returns>A random position inside the playground</returns>
@@ -51,7 +57,14 @@ namespace Sneka
 
         private void SpawnFruit()
         {
-            Instantiate(_fruitList[Random.Range(0, _fruitList.Length)], GetRandomPosition(), Quaternion.identity);
+            var fruit = Instantiate(_fruitList[Random.Range(0, _fruitList.Length)], GetRandomPosition(), Quaternion.identity);
+            _ui.ActiveBar(1f/fruit.GetComponent<Fruit>().duration);
+        }
+
+        public void AddScore(int value)
+        {
+            _score += value;
+            _ui.SetScore(_score);
         }
     }
 }

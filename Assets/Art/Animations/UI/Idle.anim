@@ -52,7 +52,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Sliding Area
+    path: Bg
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -71,7 +71,7 @@ AnimationClip:
       customType: 24
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3497813242
+      path: 1346423683
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -134,7 +134,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Sliding Area
+    path: Bg
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []
