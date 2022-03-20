@@ -18,9 +18,11 @@ namespace Sneka
 
         private Controls _inputs;
         private List<Transform> _transforms = new List<Transform>();
+        private Animator _animator;
 
         private void Awake()
         {
+            _animator = GetComponent<Animator>();
             _transforms.Add(transform);
             _nextMove = 1;
             _inputs = new Controls();
@@ -52,6 +54,8 @@ namespace Sneka
                     _transforms[i].position = _transforms[i - 1].position;
                 }
                 _transforms[0].position += _direction;
+                _animator.SetFloat("DirectionX", _direction.x);
+                _animator.SetFloat("DirectionY", _direction.y);
                 _nextMove = _slowness;
             }
             else
@@ -62,9 +66,17 @@ namespace Sneka
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+            if(collision.tag == "Obstacle")
+            {
+                _animator.SetTrigger("Hit");
+                _nextMove = 0;
+                Debug.Log("GameOver");
+                _inputs.Player.Disable();
+            }
             IEdible col;
             if (collision.TryGetComponent(out col))
             {
+                _animator.SetTrigger("Eat");
                 Grow(col.Consume());
             }
         }
@@ -86,7 +98,7 @@ namespace Sneka
             {
                 for (int i = 0; i < amount; ++i)
                 {
-                    _transforms.Add(Instantiate(_prefab, _transforms[0].position, Quaternion.identity).transform);
+                    _transforms.Add(Instantiate(_prefab, new Vector3(40,0,0), Quaternion.identity).transform);
                 }
             }
         }

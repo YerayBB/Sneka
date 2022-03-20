@@ -9,7 +9,7 @@ namespace Sneka
         public float duration = 5;
         [SerializeField]
         [Min(2)]
-        private int _points = 5;
+        private int _points = 10;
         [SerializeField]
         private int _nutrients = 1;
 
