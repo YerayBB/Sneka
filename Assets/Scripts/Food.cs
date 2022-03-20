@@ -24,6 +24,7 @@ namespace Sneka
         public int Consume()
         {
             _transform.position = GameManager.Instance.GetRandomPosition();
+            OnFoodEaten?.Invoke();
             return 1;
         }
     }

@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 671209974}
   - component: {fileID: 671209973}
   - component: {fileID: 671209972}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 2109681886}
   - component: {fileID: 2109681885}
   - component: {fileID: 2109681884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Snake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,6 +890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec43d3d3895908459524d39c903e586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slowness: 1
 --- !u!50 &2109681885
 Rigidbody2D:
   serializedVersion: 4
