@@ -12,11 +12,18 @@ namespace Sneka
         [Min(2)]
         private int _points = 5;
         [SerializeField]
-        private int _growth = 1;
+        private int _nutrients = 1;
+
+        private void Awake()
+        {
+            Destroy(gameObject, _duration);
+        }
 
         public int Consume()
         {
-            return _growth;
+            gameObject.SetActive(false);
+            Destroy(gameObject, 1f);
+            return _nutrients;
         }
     }
 }
