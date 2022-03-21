@@ -136,6 +136,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Menu",
+            "id": "6b6729fe-5e9a-4ba3-a7ec-cbdd0b7b3b68",
+            "actions": [
+                {
+                    "name": "Retry",
+                    "type": "Button",
+                    "id": "7f409810-6e38-45d2-90fe-3e8b932b396b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "cbe03a54-06ba-412c-8f5e-97a5ef7f155e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "64016e36-7f80-4cc0-bf6f-f9dfa7e3ed4a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Retry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a64a0827-081e-46ae-abe0-38dfff837a10",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

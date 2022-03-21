@@ -160,6 +160,54 @@ namespace Sneka
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Menu"",
+            ""id"": ""6b6729fe-5e9a-4ba3-a7ec-cbdd0b7b3b68"",
+            ""actions"": [
+                {
+                    ""name"": ""Retry"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f409810-6e38-45d2-90fe-3e8b932b396b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbe03a54-06ba-412c-8f5e-97a5ef7f155e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""64016e36-7f80-4cc0-bf6f-f9dfa7e3ed4a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a64a0827-081e-46ae-abe0-38dfff837a10"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -168,6 +216,10 @@ namespace Sneka
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_MovementX = m_Player.FindAction("MovementX", throwIfNotFound: true);
             m_Player_MovementY = m_Player.FindAction("MovementY", throwIfNotFound: true);
+            // Menu
+            m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+            m_Menu_Retry = m_Menu.FindAction("Retry", throwIfNotFound: true);
+            m_Menu_Quit = m_Menu.FindAction("Quit", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -264,10 +316,56 @@ namespace Sneka
             }
         }
         public PlayerActions @Player => new PlayerActions(this);
+
+        // Menu
+        private readonly InputActionMap m_Menu;
+        private IMenuActions m_MenuActionsCallbackInterface;
+        private readonly InputAction m_Menu_Retry;
+        private readonly InputAction m_Menu_Quit;
+        public struct MenuActions
+        {
+            private @Controls m_Wrapper;
+            public MenuActions(@Controls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Retry => m_Wrapper.m_Menu_Retry;
+            public InputAction @Quit => m_Wrapper.m_Menu_Quit;
+            public InputActionMap Get() { return m_Wrapper.m_Menu; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+            public void SetCallbacks(IMenuActions instance)
+            {
+                if (m_Wrapper.m_MenuActionsCallbackInterface != null)
+                {
+                    @Retry.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnRetry;
+                    @Retry.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnRetry;
+                    @Retry.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnRetry;
+                    @Quit.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnQuit;
+                    @Quit.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnQuit;
+                    @Quit.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnQuit;
+                }
+                m_Wrapper.m_MenuActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Retry.started += instance.OnRetry;
+                    @Retry.performed += instance.OnRetry;
+                    @Retry.canceled += instance.OnRetry;
+                    @Quit.started += instance.OnQuit;
+                    @Quit.performed += instance.OnQuit;
+                    @Quit.canceled += instance.OnQuit;
+                }
+            }
+        }
+        public MenuActions @Menu => new MenuActions(this);
         public interface IPlayerActions
         {
             void OnMovementX(InputAction.CallbackContext context);
             void OnMovementY(InputAction.CallbackContext context);
+        }
+        public interface IMenuActions
+        {
+            void OnRetry(InputAction.CallbackContext context);
+            void OnQuit(InputAction.CallbackContext context);
         }
     }
 }

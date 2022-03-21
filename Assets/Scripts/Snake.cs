@@ -70,7 +70,7 @@ namespace Sneka
             {
                 _animator.SetTrigger("Hit");
                 _nextMove = 0;
-                Debug.Log("GameOver");
+                GameManager.Instance.GameOver();
                 _inputs.Player.Disable();
             }
             IEdible col;

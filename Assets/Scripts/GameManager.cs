@@ -66,5 +66,10 @@ namespace Sneka
             _score += value;
             _ui.SetScore(_score);
         }
+
+        public void GameOver()
+        {
+            _ui.GameOverUI();
+        }
     }
 }
