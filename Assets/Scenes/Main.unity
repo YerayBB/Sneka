@@ -12464,7 +12464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _slowness: 10
-  _prefab: {fileID: 3362885039496580787, guid: 14f15f47a262dce42b43073e4a0943ba, type: 3}
+  _bodyPrefab: {fileID: 3362885039496580787, guid: 14f15f47a262dce42b43073e4a0943ba, type: 3}
 --- !u!50 &2109681885
 Rigidbody2D:
   serializedVersion: 4
