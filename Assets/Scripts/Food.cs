@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sneka
@@ -9,6 +7,8 @@ namespace Sneka
         public static event System.Action OnFoodEaten;
 
         private Transform _transform;
+
+        #region MonoBehaviourCalls
 
         private void Awake()
         {
@@ -20,6 +20,8 @@ namespace Sneka
         {
             _transform.position = GameManager.Instance.GetRandomPosition();
         }
+
+        #endregion
 
         public int Consume()
         {

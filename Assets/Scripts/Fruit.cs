@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sneka
@@ -13,10 +11,14 @@ namespace Sneka
         [SerializeField]
         private int _nutrients = 1;
 
+        #region MonoBehaviourCalls
+
         private void Awake()
         {
             Destroy(gameObject, duration);
         }
+
+        #endregion
 
         public int Consume()
         {

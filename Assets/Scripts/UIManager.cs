@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -12,15 +10,21 @@ namespace Sneka {
         private TMP_Text _score;
         private Controls _inputs;
 
+        #region MonoBehaviourCalls
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _barAnimator = transform.GetChild(0).GetComponent<Animator>();
             _score = transform.GetChild(2).GetComponent<TMP_Text>();
+
+            //input handling
             _inputs = new Controls();
             _inputs.Menu.Retry.performed += (a) => Retry();
             _inputs.Menu.Quit.performed += (a) => Quit();
         }
+
+        #endregion
 
         public void ActiveBar(float duration)
         {

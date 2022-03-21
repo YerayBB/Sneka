@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,15 +10,17 @@ namespace Sneka
         [Tooltip("The amount of fixedUpdates between each move")]
         private int _slowness = 1;
         [SerializeField]
-        private GameObject _prefab;
+        private GameObject _bodyPrefab;
 
-        private int _nextMove;
-        private Vector3 _direction = Vector3.right;
-
-        private Controls _inputs;
-        private List<Transform> _transforms = new List<Transform>();
         private Animator _animator;
+        private Controls _inputs;
 
+        private List<Transform> _transforms = new List<Transform>();
+        private Vector3 _direction = Vector3.right;
+        private int _nextMove;
+
+
+        #region MonoBehaviourCalls
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -68,11 +69,13 @@ namespace Sneka
         {
             if(collision.tag == "Obstacle")
             {
+                //GameOver
                 _animator.SetTrigger("Hit");
                 _nextMove = 0;
                 GameManager.Instance.GameOver();
                 _inputs.Player.Disable();
             }
+
             IEdible col;
             if (collision.TryGetComponent(out col))
             {
@@ -80,6 +83,8 @@ namespace Sneka
                 Grow(col.Consume());
             }
         }
+
+        #endregion
 
         private void Grow(int amount)
         {
@@ -98,7 +103,7 @@ namespace Sneka
             {
                 for (int i = 0; i < amount; ++i)
                 {
-                    _transforms.Add(Instantiate(_prefab, new Vector3(40,0,0), Quaternion.identity).transform);
+                    _transforms.Add(Instantiate(_bodyPrefab, new Vector3(40,0,0), Quaternion.identity).transform);
                 }
             }
         }

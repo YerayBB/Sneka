@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sneka
@@ -11,16 +9,17 @@ namespace Sneka
 
         [SerializeField]
         private UIManager _ui;
-
-        private BoxCollider2D _area;
         [SerializeField]
         private GameObject[] _fruitList;
         [SerializeField]
         private int _fruitInterval = 5;
-        private int _nextSpawn;
 
+        private BoxCollider2D _area;
+        private int _nextSpawn;
         private int _score = 0;
 
+
+        #region MonoBehaviourCalls
 
         private void Awake()
         {
@@ -49,16 +48,12 @@ namespace Sneka
             _ui.SetScore(_score);
         }
 
+        #endregion
+
         /// <returns>A random position inside the playground</returns>
         public Vector3 GetRandomPosition()
         {
             return new Vector3(Mathf.Round(Random.Range(_area.bounds.min.x, _area.bounds.max.x)),Mathf.Round(Random.Range(_area.bounds.min.y, _area.bounds.max.y)));
-        }
-
-        private void SpawnFruit()
-        {
-            var fruit = Instantiate(_fruitList[Random.Range(0, _fruitList.Length)], GetRandomPosition(), Quaternion.identity);
-            _ui.ActiveBar(1f/fruit.GetComponent<Fruit>().duration);
         }
 
         public void AddScore(int value)
@@ -70,6 +65,12 @@ namespace Sneka
         public void GameOver()
         {
             _ui.GameOverUI();
+        }
+
+        private void SpawnFruit()
+        {
+            var fruit = Instantiate(_fruitList[Random.Range(0, _fruitList.Length)], GetRandomPosition(), Quaternion.identity);
+            _ui.ActiveBar(1f / fruit.GetComponent<Fruit>().duration);
         }
     }
 }
